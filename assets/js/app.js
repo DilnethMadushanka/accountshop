@@ -38,7 +38,7 @@
     if (item.image) {
       return `<div class="cover"><img src="${esc(item.image)}" alt="" loading="lazy" /></div>`;
     }
-    const h = hue(item.game);
+    const h = hue(item.id + item.game);
     return `<div class="cover cover-art" style="--h:${h}">
       <span class="cover-initials">${esc(initials(item.game))}</span>
     </div>`;
@@ -62,32 +62,68 @@
   });
   $("#year").textContent = new Date().getFullYear();
 
-  // ── Stats ──────────────────────────────────────────────────
-  $("#stats").innerHTML = (shop.stats || [])
-    .map((s) => `<div><dt>${esc(s.label)}</dt><dd>${esc(s.value)}</dd></div>`)
-    .join("");
+  // ── Hero ───────────────────────────────────────────────────
+  const hero = shop.hero || {};
+  document.querySelectorAll("[data-hero]").forEach((el) => {
+    const v = hero[el.dataset.hero];
+    if (v) el.textContent = v;
+  });
+  // [words] in the subtitle are highlighted.
+  $("#hero-sub").innerHTML = esc(hero.subtitle || "").replace(/\[(.+?)\]/g, '<span class="hl-green">$1</span>');
+  $("#hero-trust").innerHTML = (hero.trust || []).map((t) => `<li>${esc(t)}</li>`).join("");
 
-  // ── Hero card stack (first three available listings) ───────
-  const featured = shop.listings.filter((l) => l.status === "available").slice(0, 3);
-  $("#hero-stack").innerHTML = featured
-    .map(
-      (item, i) => `
-      <div class="stack-card" style="--i:${i}">
-        ${cover(item)}
-        <div class="stack-meta">
-          <span class="mono">${esc(item.id)}</span>
-          <strong>${esc(item.game)}</strong>
-          <span>${esc(item.title)}</span>
-        </div>
-      </div>`
-    )
-    .join("");
+  const reviews = $("#reviews-link");
+  if (c.reviews) {
+    reviews.href = c.reviews;
+    reviews.target = "_blank";
+    reviews.rel = "noopener";
+  }
+
+  // Use the owner's images when they exist, otherwise keep the drawn fallback.
+  const EMBLEM = `
+    <div class="emblem">
+      <span class="ring ring-1"></span><span class="ring ring-2"></span>
+      <svg class="bolt" viewBox="0 0 200 200">
+        <path d="M112 18 58 112h38l-12 70 58-100h-40l10-64z" />
+      </svg>
+      <span class="emblem-label">${esc(hero.highlight || "")}</span>
+    </div>`;
+  const figure = $("#hero-figure");
+  figure.innerHTML = EMBLEM;
+  if (hero.character) {
+    const img = new Image();
+    img.alt = "";
+    img.className = "hero-character";
+    img.onload = () => {
+      figure.innerHTML = "";
+      figure.append(img);
+      figure.classList.add("has-character");
+    };
+    img.src = hero.character;
+  }
+  if (hero.background) {
+    const bg = new Image();
+    bg.onload = () => {
+      $("#hero-bg").style.setProperty("--hero-img", `url("${hero.background}")`);
+      $("#hero-bg").classList.add("has-image");
+    };
+    bg.src = hero.background;
+  }
+
+  // Drifting sparks, like the reference banner.
+  const sparks = $("#hero-particles");
+  for (let i = 0; i < 28; i++) {
+    const s = document.createElement("span");
+    s.style.cssText = `left:${Math.random() * 100}%;top:${Math.random() * 100}%;--d:${6 + Math.random() * 8}s;--delay:${-Math.random() * 10}s;--s:${2 + Math.random() * 4}px`;
+    sparks.append(s);
+  }
 
   // ── Listings + filters ─────────────────────────────────────
   const games = [...new Set(shop.listings.map((l) => l.game))];
   const state = { game: "All", showSold: false };
 
   const chipRoot = $("#game-filter");
+  chipRoot.hidden = games.length < 2; // one-game shop: no need to filter
   chipRoot.innerHTML = ["All", ...games]
     .map((g) => `<button type="button" class="chip" data-game="${esc(g)}" aria-pressed="${g === "All"}">${esc(g)}</button>`)
     .join("");
