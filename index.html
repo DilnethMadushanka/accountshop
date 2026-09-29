@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AccountShop — Verified game accounts</title>
+    <meta
+      name="description"
+      content="Hand-checked game accounts with every detail up front. Browse the listings and message directly — no online payments."
+    />
+    <meta name="theme-color" content="#0e0f0d" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=Geist+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <a class="skip" href="#listings">Skip to listings</a>
+
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="brand" href="#top" aria-label="Home">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span data-shop="name">AccountShop</span>
+        </a>
+        <nav class="nav" aria-label="Main">
+          <a href="#listings">Accounts</a>
+          <a href="#how">How it works</a>
+          <a href="#faq">FAQ</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <a class="btn btn-small" data-link="whatsapp" href="#contact">Message</a>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- Hero -->
+      <section class="hero wrap">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="dot"></span> Open for enquiries</p>
+          <h1 data-shop="tagline">Verified game accounts, handed over properly.</h1>
+          <p class="lede" data-shop="intro"></p>
+          <div class="hero-actions">
+            <a class="btn" href="#listings">Browse accounts</a>
+            <a class="btn btn-ghost" data-link="whatsapp" href="#contact">Chat on WhatsApp</a>
+          </div>
+          <dl class="stats" id="stats"></dl>
+        </div>
+        <div class="hero-stack" id="hero-stack" aria-hidden="true"></div>
+      </section>
+
+      <!-- Listings -->
+      <section class="section" id="listings">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <p class="kicker">01 · Listings</p>
+              <h2>Accounts right now</h2>
+            </div>
+            <p class="section-note">
+              Prices are for reference. Nothing is paid on this site — tap any account to see the details and message me.
+            </p>
+          </div>
+
+          <div class="toolbar">
+            <div class="chips" id="game-filter" role="group" aria-label="Filter by game"></div>
+            <label class="toggle">
+              <input type="checkbox" id="show-sold" />
+              <span>Show sold</span>
+            </label>
+          </div>
+
+          <ul class="grid" id="grid"></ul>
+          <p class="empty" id="empty" hidden>Nothing here right now. Message me — new accounts come in every week.</p>
+        </div>
+      </section>
+
+      <!-- How it works -->
+      <section class="section section-alt" id="how">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <p class="kicker">02 · Process</p>
+              <h2>How buying works</h2>
+            </div>
+            <p class="section-note">Everything happens one-to-one in chat. No accounts to sign up for, no card forms.</p>
+          </div>
+          <ol class="steps">
+            <li>
+              <span class="step-no">1</span>
+              <h3>Message me</h3>
+              <p>Send the listing number (like AS-101) on WhatsApp or Telegram. Ask anything.</p>
+            </li>
+            <li>
+              <span class="step-no">2</span>
+              <h3>See it live</h3>
+              <p>I show the account on a video call or screen-share: inventory, binds and login screen.</p>
+            </li>
+            <li>
+              <span class="step-no">3</span>
+              <h3>Agree the details</h3>
+              <p>We agree on price and payment method directly. Nothing is charged through this website.</p>
+            </li>
+            <li>
+              <span class="step-no">4</span>
+              <h3>Handover together</h3>
+              <p>Email and binds are moved to you step by step, and my recovery options are removed.</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="section" id="faq">
+        <div class="wrap faq-wrap">
+          <div>
+            <p class="kicker">03 · Questions</p>
+            <h2>Good to know</h2>
+            <p class="section-note">Can't find your answer? Just ask — replies are usually within the hour.</p>
+          </div>
+          <div class="faq" id="faq-list"></div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section class="section contact" id="contact">
+        <div class="wrap">
+          <p class="kicker">04 · Contact</p>
+          <h2 class="contact-title">Seen one you like?<br /><em>Just say hi.</em></h2>
+          <div class="contact-grid" id="contact-grid"></div>
+          <p class="contact-meta">
+            <span data-contact="hours"></span>
+            <span class="sep" aria-hidden="true">·</span>
+            <span data-contact="location"></span>
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <p>© <span id="year"></span> <span data-shop="name">AccountShop</span>. Catalogue only — no payments are taken on this site.</p>
+        <p class="muted">Game names and trademarks belong to their owners. This shop is not affiliated with any game publisher.</p>
+      </div>
+    </footer>
+
+    <!-- Detail dialog -->
+    <dialog class="sheet" id="sheet" aria-labelledby="sheet-title">
+      <form method="dialog" class="sheet-close-form">
+        <button class="icon-btn" aria-label="Close">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
+        </button>
+      </form>
+      <div id="sheet-body"></div>
+    </dialog>
+
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/app.js"></script>
+  </body>
+</html>
