@@ -39,7 +39,7 @@ window.SHOP = {
 
   contact: {
     // WhatsApp number in international format, digits only (e.g. 94771234567).
-    whatsapp: "94770000000",
+    whatsapp: "94740436276",
     telegram: "madsaccountstore", // username without @
     facebook: "https://facebook.com/madsaccountstore",
     email: "hello@madsaccountstore.lk",
