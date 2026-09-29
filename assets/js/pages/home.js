@@ -1,6 +1,6 @@
 (function () {
   "use strict";
-  const { shop, $, esc, card, sparks } = window.Site;
+  const { shop, $, $$, esc, card, sparks, money, openSheet } = window.Site;
   const hero = shop.hero || {};
 
   // ── Hero text ──────────────────────────────────────────────
@@ -28,9 +28,36 @@
       const wrap = document.createElement("div");
       wrap.className = "char-wrap";
       wrap.append(img);
-      figure.innerHTML = "";
+      const pick = shop.listings.find((l) => l.status === "available");
+      figure.innerHTML = `
+        <div class="hud" aria-hidden="true">
+          <span class="hud-ring r1"></span><span class="hud-ring r2"></span><span class="hud-ring r3"></span>
+          <span class="hud-sweep"></span>
+        </div>`;
+      wrap.insertAdjacentHTML("beforeend", '<span class="char-ground" aria-hidden="true"><i></i><i></i></span>');
       figure.append(wrap);
+      if (pick) {
+        figure.insertAdjacentHTML(
+          "beforeend",
+          `<button type="button" class="hud-chip chip-a" data-depth="16">
+            <span class="chip-kicker"><i></i>Just listed · ${esc(pick.id)}</span>
+            <strong>${esc(pick.title)}</strong>
+            <span>${esc(pick.level || "")} · ${money(pick.price)}</span>
+          </button>`
+        );
+        $(".chip-a", figure).addEventListener("click", () => openSheet(pick));
+      }
+      if ((hero.trust || [])[0]) {
+        figure.insertAdjacentHTML(
+          "beforeend",
+          `<div class="hud-chip chip-b" data-depth="24" aria-hidden="true">
+            <span class="chip-check">✓</span><span><strong>${esc(hero.trust[0])}</strong><span>Shown live before you pay</span></span>
+          </div>`
+        );
+      }
+      figure.insertAdjacentHTML("beforeend", '<span class="booyah" data-depth="30" aria-hidden="true">BOOYAH!</span>');
       figure.classList.add("has-character");
+      layers = $$("[data-depth]", heroEl);
       if (hero.electric !== false && window.electrify) requestAnimationFrame(() => window.electrify(img, hero.electric || {}));
     };
     img.src = hero.character;
@@ -44,6 +71,40 @@
     bg.src = hero.background;
   }
   sparks($("#hero-particles"), 28);
+
+  // ── Scrolling title band behind everything ─────────────────
+  const words = [hero.highlight, shop.name, "Buy", "Sell", "Admin service"].filter(Boolean);
+  const run = words.map((w) => `<span>${esc(w)}</span><b aria-hidden="true">✦</b>`).join("");
+  $("#marquee").innerHTML = `<div aria-hidden="true">${run}</div><div aria-hidden="true">${run}</div>`;
+
+  // ── Entrance + pointer parallax ────────────────────────────
+  const heroEl = $(".hero");
+  const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let layers = $$("[data-depth]", heroEl);
+  requestAnimationFrame(() => heroEl.classList.add("is-in"));
+
+  if (!still && window.matchMedia("(pointer: fine)").matches) {
+    let tx = 0, ty = 0, x = 0, y = 0, raf = 0;
+    const tick = () => {
+      x += (tx - x) * 0.08;
+      y += (ty - y) * 0.08;
+      layers.forEach((el) => {
+        const d = +el.dataset.depth;
+        el.style.translate = `${(x * d).toFixed(2)}px ${(y * d).toFixed(2)}px`;
+      });
+      raf = Math.abs(tx - x) + Math.abs(ty - y) > 0.001 ? requestAnimationFrame(tick) : 0;
+    };
+    heroEl.addEventListener("pointermove", (e) => {
+      const r = heroEl.getBoundingClientRect();
+      tx = ((e.clientX - r.left) / r.width - 0.5) * 2;
+      ty = ((e.clientY - r.top) / r.height - 0.5) * 2;
+      if (!raf) raf = requestAnimationFrame(tick);
+    });
+    heroEl.addEventListener("pointerleave", () => {
+      tx = ty = 0;
+      if (!raf) raf = requestAnimationFrame(tick);
+    });
+  }
 
   // ── Featured: first three accounts for sale ────────────────
   const forSale = shop.listings.filter((l) => l.status === "available");
