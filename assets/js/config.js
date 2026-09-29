@@ -14,11 +14,22 @@ window.SHOP = {
     highlight: "Free Fire",
     after: "Account Store",
 
-    // Words inside [square brackets] are shown in green.
+    // Words inside [square brackets] are highlighted in yellow.
     subtitle: "FF Account [Buy & Sell] කරන්න හොඳම තැන",
 
-    // Small trust line under the buttons.
-    trust: ["Trusted FF Accounts", "5+ Years Experience"],
+    // Small line above the title.
+    eyebrow: "Sri Lanka's Free Fire account market",
+
+    // Stats under the buttons. {available} is replaced with the number
+    // of accounts currently for sale.
+    stats: [
+      { value: "5+", label: "Years experience" },
+      { value: "{available}", label: "Accounts live now" },
+      { value: "100%", label: "Shown live first" },
+    ],
+
+    // Trust note shown in the glass card next to the character.
+    trust: ["Trusted FF Accounts"],
 
     /*
      * Your images. Put the files in assets/img/ with these names

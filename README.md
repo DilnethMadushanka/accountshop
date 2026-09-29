@@ -21,7 +21,7 @@ Forms never send data anywhere except into a WhatsApp message (or email) the vis
 Everything you will want to change lives in one file: [`assets/js/config.js`](assets/js/config.js).
 
 - `name` — the shop name in the header and footer.
-- `hero` — the big banner: title, the Sinhala subtitle (words in `[brackets]` turn green) and the trust line.
+- `hero` — the big banner: title, the Sinhala subtitle (words in `[brackets]` turn yellow), the eyebrow line, the stats under the buttons and the trust line.
 - `contact` — your WhatsApp number (digits only, with country code, e.g. `94771234567`), Telegram username, Facebook link, email, opening hours and location. Leave one empty (`""`) to hide it.
 - `contact.reviews` — where the Reviews button goes, such as your Facebook reviews page.
 - `listings` — one entry per account. Set `status` to `"available"`, `"reserved"` or `"sold"`. Add `image: "assets/img/your-photo.jpg"` to use a screenshot instead of the generated cover.

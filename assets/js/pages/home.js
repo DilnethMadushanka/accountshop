@@ -9,8 +9,32 @@
     if (v) el.textContent = v;
   });
   // [words] in the subtitle are highlighted.
-  $("#hero-sub").innerHTML = esc(hero.subtitle || "").replace(/\[(.+?)\]/g, '<span class="hl-green">$1</span>');
-  $("#hero-trust").innerHTML = (hero.trust || []).map((t) => `<li>${esc(t)}</li>`).join("");
+  $("#hero-sub").innerHTML = esc(hero.subtitle || "").replace(/\[(.+?)\]/g, '<span class="hl-yellow">$1</span>');
+  if (hero.eyebrow) $("#hero-eyebrow").textContent = hero.eyebrow;
+  const liveCount = shop.listings.filter((l) => l.status === "available").length;
+  $("#hero-stats").innerHTML = (hero.stats || [])
+    .map((st) => {
+      const v = String(st.value).replace("{available}", liveCount);
+      return `<div><dd data-count="${esc(v)}">${esc(v)}</dd><dt>${esc(st.label)}</dt></div>`;
+    })
+    .join("");
+  // Count the numbers up when the hero appears ("5+" counts to 5, then gets its "+").
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    $$("#hero-stats dd").forEach((dd, i) => {
+      const m = dd.dataset.count.match(/^(\D*)(\d+)(.*)$/);
+      if (!m) return;
+      const [, pre, num, post] = m;
+      const end = +num;
+      const t0 = performance.now() + 500 + i * 120;
+      dd.textContent = `${pre}0${post}`;
+      const step = (t) => {
+        const k = Math.min(1, Math.max(0, (t - t0) / 900));
+        dd.textContent = `${pre}${Math.round(end * (1 - Math.pow(1 - k, 3)))}${post}`;
+        if (k < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    });
+  }
 
   // ── Character (with lightning) or the fallback emblem ──────
   const figure = $("#hero-figure");
