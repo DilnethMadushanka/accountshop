@@ -30,7 +30,7 @@
 }
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 84px;
+  scroll-padding-top: 96px;
   -webkit-text-size-adjust: 100%;
 }
 body {
@@ -142,61 +142,280 @@ button {
   font-size: 0.92rem;
 }
 
-/* ─── Header ─────────────────────────────────────────────── */
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  background: color-mix(in srgb, var(--bg) 80%, transparent);
-  backdrop-filter: saturate(1.4) blur(14px);
-  -webkit-backdrop-filter: saturate(1.4) blur(14px);
-  border-bottom: 1px solid var(--line);
+/* ─── Nav (floating bar: glass over the hero, solid once scrolled) ── */
+.nav-shell {
+  position: fixed;
+  top: 12px;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  padding: 0 12px;
+  pointer-events: none;
 }
-.header-inner {
+.nav-bar {
+  --logo-bg: #fff;
+  --logo-fg: var(--accent);
+  pointer-events: auto;
+  max-width: calc(var(--wrap) - 32px);
+  margin: 0 auto;
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 12px;
   height: 64px;
+  padding: 0 10px 0 10px;
+  border-radius: 20px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  backdrop-filter: blur(16px) saturate(1.4);
+  transition: background 0.35s, color 0.35s, border-color 0.35s, box-shadow 0.35s;
+}
+.nav-shell.is-scrolled .nav-bar,
+.nav-shell.is-open .nav-bar {
+  --logo-bg: var(--accent);
+  --logo-fg: #fff;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.92);
+  border-color: var(--line);
+  box-shadow: 0 18px 40px -22px rgba(120, 10, 20, 0.45);
 }
 .brand {
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  text-decoration: none;
+  flex: none;
+}
+.logo svg {
+  display: block;
+}
+.logo-bg {
+  fill: var(--logo-bg);
+  transition: fill 0.35s;
+}
+.logo-m {
+  fill: none;
+  stroke: var(--logo-fg);
+  stroke-width: 3.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.35s;
+}
+.logo-bolt {
+  fill: var(--logo-fg);
+  transition: fill 0.35s;
+}
+.brand:hover .logo-bolt {
+  animation: zap 0.5s steps(2) 2;
+}
+@keyframes zap {
+  50% {
+    opacity: 0.3;
+  }
+}
+.brand-text {
+  display: grid;
+  line-height: 1.05;
+}
+.brand-text strong {
+  font-size: 1.12rem;
   font-weight: 800;
-  font-size: 1.08rem;
+  letter-spacing: -0.02em;
+}
+.brand-text small {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+.nav-links {
+  position: relative;
+  display: none;
+  margin: 0 auto;
+  padding: 4px;
+}
+.nav-links a {
+  position: relative;
+  z-index: 1;
+  padding: 9px 15px;
+  border-radius: 11px;
+  font-size: 0.94rem;
+  font-weight: 500;
+  text-decoration: none;
+  opacity: 0.82;
+  transition: opacity 0.2s;
+}
+.nav-links a:hover,
+.nav-links a.is-active {
+  opacity: 1;
+}
+.nav-pill {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 0;
+  width: 0;
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.2);
+  opacity: 0;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), width 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.2s,
+    background 0.35s;
+}
+.nav-shell.is-scrolled .nav-pill {
+  background: var(--surface-2);
+}
+.nav-shell.is-scrolled .nav-links a.is-active {
+  color: var(--accent);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+.nav-status {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  opacity: 0.85;
+  margin-right: 6px;
+}
+.nav-status i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6);
+  animation: online 2s infinite;
+}
+@keyframes online {
+  70% {
+    box-shadow: 0 0 0 7px transparent;
+  }
+}
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 18px;
+  border-radius: 13px;
+  background: #fff;
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 0.94rem;
+  text-decoration: none;
+  transition: background 0.35s, color 0.35s, transform 0.2s;
+}
+.nav-cta:hover {
+  transform: translateY(-1px);
+}
+.nav-shell.is-scrolled .nav-cta,
+.nav-shell.is-open .nav-cta {
+  background: var(--accent);
+  color: #fff;
+}
+.burger {
+  display: grid;
+  place-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.16);
+  cursor: pointer;
+  transition: background 0.35s;
+}
+.nav-shell.is-scrolled .burger,
+.nav-shell.is-open .burger {
+  background: var(--surface-2);
+}
+.burger span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform 0.3s;
+}
+.burger[aria-expanded="true"] span:first-child {
+  transform: translateY(3.5px) rotate(45deg);
+}
+.burger[aria-expanded="true"] span:last-child {
+  transform: translateY(-3.5px) rotate(-45deg);
+}
+
+.menu {
+  pointer-events: auto;
+  max-width: calc(var(--wrap) - 32px);
+  margin: 8px auto 0;
+  padding: 8px 14px 14px;
+  border-radius: 20px;
+  background: #fff;
+  border: 1px solid var(--line);
+  box-shadow: 0 30px 60px -30px rgba(120, 10, 20, 0.5);
+  animation: menu-in 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+}
+.menu nav {
+  display: grid;
+}
+.menu nav a {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 16px 6px;
+  border-bottom: 1px solid var(--line);
+  font-size: 1.5rem;
+  font-weight: 700;
   letter-spacing: -0.02em;
   text-decoration: none;
 }
-.brand-mark {
-  width: 22px;
-  height: 22px;
-  border-radius: 7px;
-  background: var(--accent);
-  box-shadow: inset -6px -6px 0 rgba(0, 0, 0, 0.18);
+.menu nav a span {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--accent);
 }
-.nav {
-  display: none;
-  gap: 28px;
-  margin-left: auto;
+.menu-cta {
+  width: 100%;
+  margin-top: 14px;
 }
-.nav a {
-  text-decoration: none;
-  color: var(--muted);
-  font-size: 0.95rem;
-  transition: color 0.2s;
+
+@media (max-width: 400px) {
+  .nav-cta {
+    padding: 0 13px;
+  }
+  .nav-cta span {
+    display: none;
+  }
 }
-.nav a:hover {
-  color: var(--text);
-}
-.header-inner .btn {
-  margin-left: auto;
-}
-@media (min-width: 820px) {
-  .nav {
+@media (min-width: 900px) {
+  .nav-links {
     display: flex;
   }
-  .header-inner .btn {
+  .nav-actions {
     margin-left: 0;
+  }
+  .burger,
+  .menu {
+    display: none !important;
+  }
+}
+@media (min-width: 1140px) {
+  .nav-status {
+    display: inline-flex;
   }
 }
 
@@ -266,14 +485,14 @@ button {
   display: grid;
   align-items: center;
   gap: 8px;
-  padding-top: 24px;
+  padding-top: 104px;
   padding-bottom: 110px;
 }
 @media (min-width: 900px) {
   .hero-inner {
     grid-template-columns: 1.1fr 0.9fr;
-    min-height: clamp(560px, 80vh, 760px);
-    padding-top: 0;
+    min-height: clamp(620px, 90vh, 840px);
+    padding-top: 96px;
     padding-bottom: 80px;
   }
 }
@@ -377,26 +596,48 @@ button {
     min-height: 520px;
   }
 }
-.hero-character {
+.hero-figure.has-character {
+  display: flex;
+  justify-content: center;
+}
+.char-wrap {
+  position: relative;
   height: 100%;
-  max-height: 100%;
-  max-width: 100%;
+  width: fit-content;
+}
+.electric {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+}
+.hero-character {
+  display: block;
+  height: 100%;
+  width: auto;
   object-fit: contain;
-  filter: drop-shadow(0 0 24px rgba(255, 255, 255, 0.6));
+  filter: drop-shadow(0 0 18px rgba(255, 210, 63, 0.55));
+  animation: charge 2.6s infinite;
+}
+@keyframes charge {
+  0%, 100% { filter: drop-shadow(0 0 18px rgba(255, 210, 63, 0.5)); }
+  40% { filter: drop-shadow(0 0 26px rgba(255, 230, 120, 0.8)); }
+  42% { filter: drop-shadow(0 0 10px rgba(255, 210, 63, 0.35)); }
+  44% { filter: drop-shadow(0 0 30px rgba(255, 240, 160, 0.95)); }
+  60% { filter: drop-shadow(0 0 20px rgba(255, 210, 63, 0.6)); }
 }
 /* The character stands on the banner's bottom edge. */
 .hero-figure.has-character {
   order: 3;
-  height: 440px;
-  margin-bottom: -110px;
+  height: 460px;
+  margin-bottom: -50px;
   align-items: end;
 }
 @media (min-width: 900px) {
   .hero-figure.has-character {
     order: 0;
     align-self: end;
-    height: clamp(500px, 76vh, 680px);
-    margin-bottom: -80px;
+    height: clamp(540px, 82vh, 720px);
+    margin-bottom: -20px;
   }
 }
 

@@ -19,7 +19,7 @@ Every "Enquire" button opens WhatsApp with a message that already names the list
 
 The banner reads two images (change the paths in `config.js` if you use other names):
 
-- `assets/img/hero-character.webp` — a Free Fire character on a **transparent** background (PNG or WebP). It gets a soft white glow and stands on the bottom edge of the banner, on the right.
+- `assets/img/hero-character.webp` — a Free Fire character on a **transparent** background (PNG or WebP). It stands on the bottom edge of the banner with animated lightning crawling around its outline (colours set in `hero.electric`; set it to `false` to turn it off). The lightning follows the image's transparent edge, so any cut-out character works.
 - `assets/img/hero-bg.jpg` — a wide scene. It is dimmed and blurred behind the text.
 
 Until they exist, the banner shows a glowing lightning emblem on a dark backdrop. Use art you have the right to use, such as your own edits or official press kit images.

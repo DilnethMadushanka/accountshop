@@ -62,6 +62,55 @@
   });
   $("#year").textContent = new Date().getFullYear();
 
+  // ── Nav ────────────────────────────────────────────────────
+  const nav = $("#nav");
+  const [first, ...rest] = shop.name.split(" ");
+  $('[data-brand="first"]').textContent = first;
+  $('[data-brand="rest"]').textContent = rest.join(" ");
+
+  const onScroll = () => nav.classList.toggle("is-scrolled", window.scrollY > 24);
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  // Phone menu
+  const burger = $(".burger");
+  const menu = $("#menu");
+  function setMenu(open) {
+    burger.setAttribute("aria-expanded", open);
+    burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    menu.hidden = !open;
+    nav.classList.toggle("is-open", open);
+  }
+  burger.addEventListener("click", () => setMenu(menu.hidden));
+  menu.addEventListener("click", (e) => e.target.closest("a") && setMenu(false));
+  document.addEventListener("keydown", (e) => e.key === "Escape" && !menu.hidden && (setMenu(false), burger.focus()));
+  document.addEventListener("click", (e) => !menu.hidden && !nav.contains(e.target) && setMenu(false));
+
+  // Sliding highlight under the section you're reading
+  const pill = $(".nav-pill");
+  const links = [...document.querySelectorAll(".nav-links a")];
+  function highlight(link) {
+    links.forEach((a) => a.classList.toggle("is-active", a === link));
+    if (!link) {
+      pill.style.opacity = 0;
+      return;
+    }
+    pill.style.opacity = 1;
+    pill.style.width = `${link.offsetWidth}px`;
+    pill.style.transform = `translateX(${link.offsetLeft}px)`;
+  }
+  const sections = links.map((a) => document.querySelector(a.getAttribute("href")));
+  const seen = new Map();
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => seen.set(e.target, e.isIntersecting));
+      highlight(links[sections.findIndex((sec) => seen.get(sec))]);
+    },
+    { rootMargin: "-45% 0px -50% 0px" }
+  );
+  sections.forEach((sec) => sec && io.observe(sec));
+  window.addEventListener("resize", () => highlight(links.find((a) => a.classList.contains("is-active"))));
+
   // ── Hero ───────────────────────────────────────────────────
   const hero = shop.hero || {};
   document.querySelectorAll("[data-hero]").forEach((el) => {
@@ -95,9 +144,15 @@
     img.alt = "";
     img.className = "hero-character";
     img.onload = () => {
+      const wrap = document.createElement("div");
+      wrap.className = "char-wrap";
+      wrap.append(img);
       figure.innerHTML = "";
-      figure.append(img);
+      figure.append(wrap);
       figure.classList.add("has-character");
+      if (hero.electric !== false && window.electrify) {
+        requestAnimationFrame(() => window.electrify(img, hero.electric || {}));
+      }
     };
     img.src = hero.character;
   }

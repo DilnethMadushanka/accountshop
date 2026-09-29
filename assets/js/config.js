@@ -29,6 +29,9 @@ window.SHOP = {
      */
     character: "assets/img/hero-character.webp",
     background: "assets/img/hero-bg.jpg",
+
+    // Lightning around the character. Set to false to turn it off.
+    electric: { glow: "#ffd23f", core: "#ffffff" },
   },
 
   // Shown as prices only. This site never takes payments.

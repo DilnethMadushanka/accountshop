@@ -20,19 +20,50 @@
   <body>
     <a class="skip" href="#listings">Skip to listings</a>
 
-    <header class="site-header">
-      <div class="wrap header-inner">
-        <a class="brand" href="#top" aria-label="Home">
-          <span class="brand-mark" aria-hidden="true"></span>
-          <span data-shop="name">Mads Account Store</span>
+    <header class="nav-shell" id="nav">
+      <div class="nav-bar">
+        <a class="brand" href="#top" aria-label="Mads Account Store, back to top">
+          <span class="logo" aria-hidden="true">
+            <svg viewBox="0 0 40 40" width="40" height="40">
+              <rect width="40" height="40" rx="12" class="logo-bg" />
+              <path d="M9 29V12l7 9 4-5" class="logo-m" />
+              <path d="M24 9l-4 10h6l-3 12 9-15h-6l3-7z" class="logo-bolt" />
+            </svg>
+          </span>
+          <span class="brand-text">
+            <strong data-brand="first">Mads</strong>
+            <small data-brand="rest">Account Store</small>
+          </span>
         </a>
-        <nav class="nav" aria-label="Main">
+
+        <nav class="nav-links" aria-label="Main">
+          <span class="nav-pill" aria-hidden="true"></span>
           <a href="#listings">Accounts</a>
           <a href="#how">How it works</a>
           <a href="#faq">FAQ</a>
           <a href="#contact">Contact</a>
         </nav>
-        <a class="btn btn-small" data-link="whatsapp" href="#contact">Message</a>
+
+        <div class="nav-actions">
+          <span class="nav-status"><i aria-hidden="true"></i>Online now</span>
+          <a class="nav-cta" data-link="whatsapp" href="#contact" aria-label="Chat on WhatsApp">
+            <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7L4 20z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" /></svg>
+            <span>Chat now</span>
+          </a>
+          <button class="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu">
+            <span></span><span></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="menu" id="menu" hidden>
+        <nav aria-label="Menu">
+          <a href="#listings"><span>01</span>Accounts</a>
+          <a href="#how"><span>02</span>How it works</a>
+          <a href="#faq"><span>03</span>FAQ</a>
+          <a href="#contact"><span>04</span>Contact</a>
+        </nav>
+        <a class="btn menu-cta" data-link="whatsapp" href="#contact">Chat on WhatsApp</a>
       </div>
     </header>
 
@@ -171,6 +202,7 @@
     </dialog>
 
     <script src="assets/js/config.js"></script>
+    <script src="assets/js/electric.js"></script>
     <script src="assets/js/app.js"></script>
   </body>
 </html>
