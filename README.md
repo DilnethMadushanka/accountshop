@@ -2,6 +2,20 @@
 
 A one-page showcase website for buying and selling Free Fire accounts. It lists the accounts you have, explains how buying works, and sends visitors to WhatsApp, Telegram, Facebook or email. **There are no payments on the site** — it is a catalogue only.
 
+## Pages
+
+| Page | File | What it does |
+| --- | --- | --- |
+| Home | `index.html` | Banner with the animated character, newest accounts, services, trust numbers, contact |
+| Reviews | `reviews.html` | Rating summary and reviews from `config.js`, plus a form that sends a review to you on WhatsApp |
+| Sell Account | `sell.html` | Form that turns a seller's account details into a WhatsApp message |
+| Buy Account | `buy.html` | All listings with search, status, budget and sort. `buy.html?id=MA-101` opens that account directly |
+| Admin Service | `admin.html` | Middleman service explained, with a fee calculator and a request form |
+| Proof | `proof.html` | Screenshot gallery with a full-screen viewer, plus sold accounts |
+| Contact | `contact.html` | Contact links, live open/closed status, and a message form (WhatsApp or email) |
+
+Forms never send data anywhere except into a WhatsApp message (or email) the visitor sends themselves. Unfinished forms are remembered in the visitor's own browser.
+
 ## Editing the shop
 
 Everything you will want to change lives in one file: [`assets/js/config.js`](assets/js/config.js).
@@ -12,6 +26,10 @@ Everything you will want to change lives in one file: [`assets/js/config.js`](as
 - `contact.reviews` — where the Reviews button goes, such as your Facebook reviews page.
 - `listings` — one entry per account. Set `status` to `"available"`, `"reserved"` or `"sold"`. Add `image: "assets/img/your-photo.jpg"` to use a screenshot instead of the generated cover.
 - `faq` — questions and answers.
+- `reviews` — real customer reviews (empty until you add some).
+- `proof` — handover screenshots in `assets/img/proof/` (empty until you add some).
+- `adminService` — the fee used by the calculator on the Admin Service page.
+- `contact.open` — opening hours that drive the Online / Offline dot.
 
 Every "Enquire" button opens WhatsApp with a message that already names the listing (for example *"I'm interested in AS-101 — PUBG Mobile…"*), so you always know which account the buyer means.
 

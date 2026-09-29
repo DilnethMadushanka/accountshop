@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Proof · Mads Account Store</title>
+    <meta name="description" content="Screenshots of past Free Fire account handovers." />
+    <meta name="theme-color" content="#e3121f" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=Geist+Mono:wght@400;500&family=Noto+Sans+Sinhala:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body data-page="proof">
+    <a class="skip" href="#main">Skip to content</a>
+    <div id="site-nav"></div>
+
+    <main id="main">
+      <section class="page-hero">
+        <div class="page-hero-bg" aria-hidden="true"><div class="hero-particles" id="page-sparks"></div></div>
+        <div class="wrap page-hero-inner">
+          <p class="page-kicker">Proof</p>
+          <h1>Real <span class="hl">handovers</span></h1>
+          <p class="page-lead">Screenshots from past deals, so you know every account here is real.</p>
+        </div>
+      </section>
+      <section class="section section-tight">
+        <div class="wrap">
+          <div class="toolbar">
+            <div class="chips" id="proof-filter" role="group" aria-label="Filter proof"></div>
+            <p class="result-count" id="proof-count" aria-live="polite"></p>
+          </div>
+          <ul class="gallery" id="gallery"></ul>
+          <div class="empty-state" id="proof-empty" hidden>
+            <h2>Screenshots coming soon</h2>
+            <p>Proof of past handovers will be posted here. Ask me on WhatsApp and I'll send some right away.</p>
+            <a class="btn" id="proof-ask" target="_blank" rel="noopener" href="#">Ask for proof</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-alt" id="handed-over">
+        <div class="wrap">
+          <div class="section-head">
+            <div><p class="kicker">Recently handed over</p><h2>Sold accounts</h2></div>
+            <p class="section-note">Accounts from the shop that now belong to someone else.</p>
+          </div>
+          <ul class="grid" id="sold-grid"></ul>
+        </div>
+      </section>
+
+      <dialog class="lightbox" id="lightbox" aria-label="Proof screenshot">
+        <button class="icon-btn lb-close" type="button" aria-label="Close" data-lb="close"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg></button>
+        <button class="icon-btn lb-prev" type="button" aria-label="Previous" data-lb="prev"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg></button>
+        <figure><img id="lb-img" alt="" /><figcaption id="lb-cap"></figcaption></figure>
+        <button class="icon-btn lb-next" type="button" aria-label="Next" data-lb="next"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg></button>
+      </dialog>
+    </main>
+
+    <div id="site-footer"></div>
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/site.js"></script>
+    <script src="assets/js/pages/proof.js"></script>
+  </body>
+</html>

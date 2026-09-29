@@ -28,7 +28,7 @@ window.SHOP = {
      *   background: a wide scene that sits dimmed and blurred behind everything
      */
     character: "assets/img/hero-character.webp",
-    background: "assets/img/hero-bg.jpg",
+    background: "", // e.g. "assets/img/hero-bg.jpg"
 
     // Lightning around the character. Set to false to turn it off.
     electric: { glow: "#ffd23f", core: "#ffffff" },
@@ -43,9 +43,11 @@ window.SHOP = {
     telegram: "madsaccountstore", // username without @
     facebook: "https://facebook.com/madsaccountstore",
     email: "hello@madsaccountstore.lk",
-    // Where the "Reviews" button goes (e.g. your Facebook page reviews).
+    // Your Facebook reviews page, linked from the Reviews page.
     reviews: "https://facebook.com/madsaccountstore/reviews",
     hours: "Every day, 9:00 AM – 10:00 PM (Sri Lanka time)",
+    // Opening hours in Sri Lanka time (24h clock). Drives the "Online now" dot.
+    open: { from: 9, to: 22 },
     location: "Sri Lanka",
   },
 
@@ -123,6 +125,32 @@ window.SHOP = {
       notes: "Email changeable. Original owner, never shared.",
     },
   ],
+
+  // Admin (middleman) service: you hold the account between a buyer and
+  // a seller who found each other elsewhere. The fee is only an estimate
+  // shown on the Admin Service page.
+  adminService: {
+    feePercent: 5,
+    feeMin: 500,
+  },
+
+  // Login types offered on the Sell page form.
+  loginTypes: ["Google", "Facebook", "VK", "X (Twitter)", "Huawei", "Guest", "Other"],
+
+  /*
+   * Reviews from real customers. Only add reviews people actually gave
+   * you (for example, copied from WhatsApp or Facebook with permission).
+   * Format:
+   *   { name: "Kasun", stars: 5, text: "Smooth handover, very patient.", date: "2026-09-12", account: "MA-104" },
+   */
+  reviews: [],
+
+  /*
+   * Proof of handovers: screenshots you took. Put images in assets/img/proof/.
+   * type: "sold" (you sold it) | "bought" (you bought it) | "admin" (middleman deal)
+   *   { image: "assets/img/proof/ma-105.jpg", caption: "MA-105 handed over", date: "2026-09-20", type: "sold" },
+   */
+  proof: [],
 
   faq: [
     {

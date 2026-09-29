@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Buy a Free Fire account · Mads Account Store</title>
+    <meta name="description" content="Browse Free Fire accounts for sale. Search, filter by budget and message on WhatsApp. No online payments." />
+    <meta name="theme-color" content="#e3121f" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=Geist+Mono:wght@400;500&family=Noto+Sans+Sinhala:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body data-page="buy">
+    <a class="skip" href="#main">Skip to content</a>
+    <div id="site-nav"></div>
+
+    <main id="main">
+      <section class="page-hero">
+        <div class="page-hero-bg" aria-hidden="true"><div class="hero-particles" id="page-sparks"></div></div>
+        <div class="wrap page-hero-inner">
+          <p class="page-kicker">Buy Account</p>
+          <h1>Find your next <span class="hl">Free Fire</span> account</h1>
+          <p class="page-lead">Every account is checked and shown live before you decide. Tap one for the full details.</p>
+        </div>
+      </section>
+      <section class="section section-tight" id="listings">
+        <div class="wrap">
+          <div class="filters" role="search">
+            <label class="search">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              <span class="sr-only">Search accounts</span>
+              <input id="q" type="search" placeholder="Search skins, guns, listing number…" autocomplete="off" />
+            </label>
+            <div class="segmented" role="group" aria-label="Status" id="status">
+              <button type="button" data-status="open" aria-pressed="true">For sale</button>
+              <button type="button" data-status="available" aria-pressed="false">Available</button>
+              <button type="button" data-status="sold" aria-pressed="false">Sold</button>
+              <button type="button" data-status="all" aria-pressed="false">All</button>
+            </div>
+            <label class="select">
+              <span class="sr-only">Budget</span>
+              <select id="budget">
+                <option value="0">Any budget</option>
+                <option value="10000">Under LKR 10,000</option>
+                <option value="25000">Under LKR 25,000</option>
+                <option value="50000">Under LKR 50,000</option>
+              </select>
+            </label>
+            <label class="select">
+              <span class="sr-only">Sort</span>
+              <select id="sort">
+                <option value="status">Recommended</option>
+                <option value="price-asc">Price: low to high</option>
+                <option value="price-desc">Price: high to low</option>
+                <option value="level-desc">Level: highest first</option>
+              </select>
+            </label>
+          </div>
+          <p class="result-count" id="count" aria-live="polite"></p>
+          <ul class="grid" id="grid"></ul>
+          <div class="empty-state" id="empty" hidden>
+            <h2>No accounts match that</h2>
+            <p>Try a different search, or tell me what you're looking for and I'll find one.</p>
+            <a class="btn" id="request-link" target="_blank" rel="noopener" href="#">Request an account</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-alt" id="how">
+        <div class="wrap">
+          <div class="section-head">
+            <div><p class="kicker">How buying works</p><h2>Four steps, all in chat</h2></div>
+            <p class="section-note">No sign-up, no card forms. You see the account live before anything is agreed.</p>
+          </div>
+          <ol class="steps">
+            <li><span class="step-no">1</span><h3>Message me</h3><p>Send the listing number (like MA-101) on WhatsApp. Ask anything.</p></li>
+            <li><span class="step-no">2</span><h3>See it live</h3><p>I show the account on a video call or screen-share: inventory, links and login screen.</p></li>
+            <li><span class="step-no">3</span><h3>Agree the details</h3><p>We agree on price and payment method directly. Nothing is charged through this website.</p></li>
+            <li><span class="step-no">4</span><h3>Handover together</h3><p>The login is moved to you step by step, and my access is removed while you watch.</p></li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="section" id="faq">
+        <div class="wrap faq-wrap">
+          <div><p class="kicker">Questions</p><h2>Good to know</h2><p class="section-note">Can't find your answer? Just ask on WhatsApp.</p></div>
+          <div class="faq" id="faq-list"></div>
+        </div>
+      </section>
+    </main>
+
+    <div id="site-footer"></div>
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/site.js"></script>
+    <script src="assets/js/pages/buy.js"></script>
+  </body>
+</html>
