@@ -24,10 +24,10 @@ window.SHOP = {
      * Your images. Put the files in assets/img/ with these names
      * (or change the paths). Until they exist, a glowing emblem and
      * a dark backdrop are shown instead.
-     *   character:  a Free Fire character with a transparent background (PNG/WebP)
+     *   character:  a Free Fire character with a transparent background (PNG or WebP)
      *   background: a wide scene that sits dimmed and blurred behind everything
      */
-    character: "assets/img/hero-character.png",
+    character: "assets/img/hero-character.webp",
     background: "assets/img/hero-bg.jpg",
   },
 
